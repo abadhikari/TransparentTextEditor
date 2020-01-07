@@ -1,5 +1,5 @@
 # TransparentTextEditor
-An only keyboard plain text editor in which the main feature is the ability to adjust the transparency. 
+A keyboard-only plain text editor in which the main feature is the ability to adjust the transparency. 
 
 Currently only functions correctly on Windows. Doesn't function correctly on mac because the application was created on a windows keyboard initially and windows and mac keyboards are different. Will add mac compatibility in the future.
 
