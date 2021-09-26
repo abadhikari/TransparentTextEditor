@@ -2,7 +2,7 @@ package sample;
 
 public class Constants {
     public static final String INVALID_COMMAND_MESSAGE = "Invalid Command!";
-    public static final String HELP_PATH_NAME = "C:\\Users\\Abhinna Adhikari\\Desktop\\transparent_text_editor_help.txt";
+    public static final String HELP_PATH_NAME = "src/sample/transparent_text_editor_help.txt";
 
     public static final String BACKGROUND_COLOR = "white";
     public static final String TEXT_COLOR = "white";
