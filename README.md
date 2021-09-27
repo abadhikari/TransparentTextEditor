@@ -58,7 +58,7 @@ opacity of the editor
 - any number from 0 - 1
  - 0 is completely transparent and 1 is completely opaque
 
-### Example of commands (each line is a separate command):
+### Example of text commands (each line is a separate command):
 font size = 15
 background color = blue
 font color = black
