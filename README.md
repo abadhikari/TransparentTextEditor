@@ -17,7 +17,7 @@ Press esc to go in and out of editing mode
 **Can't use quick commands in editing mode**
 
 ## Quick Commands:
-### Once out of editing mode:
+#### Once out of editing mode:
 Shift-S : save the file to disk
 Shift-O: open a file
 Shift-N: open a new transparent editor
@@ -25,36 +25,36 @@ Shift-Q: close the transparent editor
 Shift-F: place focus off of the editor
 Shift-H: this help window will popup
 
-### Can move the window (MOVING THE EDITOR):
+#### Can move the window (MOVING THE EDITOR):
 Shift-J : moves the window to the left
 Shift-K : moves the window downwards
 Shift-L : moves the window upwards
 Shift-; (semicolon) : moves the window to the right
 
-### Can resize the window (RESIZING THE EDITOR):
+#### Can resize the window (RESIZING THE EDITOR):
 Alt-Left Arrow : will decrease the width of the editor
 Alt-Up Arrow : will decrease the height of the editor
 Alt-Right Arrow : will increase the width of the editor
 Alt-Down Array : will increase the height of the editor
 
-### Can switch between editor windows (SHUFFLING BETWEEN WINDOWS):
+#### Can switch between editor windows (SHUFFLING BETWEEN WINDOWS):
 Ctrl : will change the focus to other editor windows
 
 ## Text Commands
 To enter commands:
 First press Shift-/. This will open a textbox at the bottom of the screen
 
-Can change:
-font size
+### Can change:
+#### font size
  - any number from 1 - 100 
 
-background color
+#### background color
  - can be blue, green, red, black, white, pink 
 
-font color 
+#### font color 
  - any color
 
-opacity of the editor
+#### opacity of the editor
 - any number from 0 - 1
  - 0 is completely transparent and 1 is completely opaque
 
