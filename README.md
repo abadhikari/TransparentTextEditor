@@ -18,11 +18,11 @@ Press esc to go in and out of editing mode
 
 ## Quick Commands:
 #### Once out of editing mode:
-Shift-S : save the file to disk
-Shift-O: open a file
-Shift-N: open a new transparent editor
-Shift-Q: close the transparent editor
-Shift-F: place focus off of the editor
+Shift-S : save the file to disk\
+Shift-O: open a file\
+Shift-N: open a new transparent editor\
+Shift-Q: close the transparent editor\
+Shift-F: place focus off of the editor\
 Shift-H: this help window will popup
 
 #### Can move the window (MOVING THE EDITOR):
