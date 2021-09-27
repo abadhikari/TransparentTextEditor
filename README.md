@@ -3,7 +3,18 @@ A keyboard-only plain text editor in which the main feature is the ability to ad
 
 **Currently only functions correctly on Windows**. Doesn't function correctly on mac because the application was created on a windows keyboard initially and windows and mac keyboards are different. Will add mac compatibility in the future.
 
-## Things to do before running:
+## Setup
+
+There are two options:
+
+### 1. Intellij Idea
+
+1) Install Intellij Idea
+2) Open the cloned repository from the location where it was cloned
+
+
+### 2. Command Line
+
 1) Download Javafx SDK from https://gluonhq.com/products/javafx/.
 2) Follow the steps given at https://openjfx.io/openjfx-docs/ which outlines how to get javafx working.
 
@@ -59,7 +70,7 @@ First press Shift-/. This will open a textbox at the bottom of the screen
  - 0 is completely transparent and 1 is completely opaque
 
 ### Example of text commands (each line is a separate command):
-font size = 15
-background color = blue
-font color = black
+font size = 15\
+background color = blue\
+font color = black\
 opacity = 0.3 
