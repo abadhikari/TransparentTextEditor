@@ -9,7 +9,7 @@ A keyboard-only plain text editor in which the main feature is the ability to ad
 
 Clone the repo:
 ```
-$ git clone git clone https://github.com/vpaliy/merklelib.git
+$ git clone git clone https://github.com/abadhikari/TransparentTextEditor.git
 ```
 
 There are two options for setup:
