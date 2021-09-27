@@ -1,6 +1,8 @@
 package sample;
 
 public class Constants {
+
+    private Constants() {}
     public static final String INVALID_COMMAND_MESSAGE = "Invalid Command!";
     public static final String HELP_PATH_NAME = "src/sample/transparent_text_editor_help.txt";
 

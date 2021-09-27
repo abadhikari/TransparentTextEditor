@@ -1,0 +1,128 @@
+@startuml
+class sample.FileManager {
+- TransparentTextEditor _editor
+- FileChooser _fileChooser
++ void saveAs()
++ void openFile()
+- void _saveFile(String,File)
+}
+
+class sample.UtilityFunctions {
++ {static} boolean isInteger(String)
++ {static} boolean isDouble(String)
++ {static} String readFileContents(File)
+}
+
+class sample.TransparentTextEditor {
+- Dimension _screenSize
+- double _width
+- javafx.scene.control.TextArea _textArea
+- TextField _textBox
+- StackPane _pane
+- Scene _scene
+- Stage _stage
+- double _textAreaOpacity
+- double _textBoxOpacity
+- String _backgroundColor
+- String _textColor
+- int _textAreaTextSize
+- int _textBoxTextSize
+- CommandParser _commandParser
+- FileManager _fileManager
+- TransparentEditorsManager _transparentEditorManager
+- ArrayList<TransparentTextEditor> _textEditors
+- AtomicInteger _focusedStage
++ void createHelpWindow(TransparentTextEditor)
++ TransparentTextEditor createNewEditor()
++ Dimension getScreenSize()
++ double getHeight()
++ double getWidth()
++ Stage getStage()
++ TextField getTextBox()
++ TextArea getTextArea()
++ double getTextAreaOpacity()
++ void setTextAreaOpacity(double)
++ double getTextBoxOpacity()
++ void setTextBoxOpacity(double)
++ String getBackgroundColor()
++ void setBackgroundColor(String)
++ String getTextColor()
++ void setTextColor(String)
++ int getTextAreaTextSize()
++ void setTextAreaTextSize(int)
++ void setTextBoxTextSize(int)
++ int getTextBoxTextSize()
++ AtomicInteger getFocusedStage()
++ void setFocusedStage(Integer)
++ ArrayList<TransparentTextEditor> getTextEditors()
++ FileManager getFileManagement()
++ CommandParser getCommandParser()
+}
+
+class sample.TransparentEditorsManager {
+- ArrayList<TransparentTextEditor> _textEditors
+- AtomicInteger _focusedStage
++ ArrayList<TransparentTextEditor> getTextEditors()
++ AtomicInteger getFocusedStage()
+}
+
+class sample.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+class sample.CommandParser {
+- TransparentTextEditor _editor
+- HashMap<String,String> _colors
+- void _fill_colors()
++ void runTextBoxInput(String)
++ void setTextColor(TextInputControl,String)
++ void setTextSize(TextInputControl,int)
++ void setBackgroundColor(TextInputControl,String)
++ void setOpacity(TextInputControl,double)
+- void _runCSSCommand(TextInputControl,String,String,String,String)
+- String _textColorCmd(String)
+- String _textSizeCmd(String)
+- String _backgroundColorOpacityCmd(String,String)
+}
+
+class sample.KeyboardPressedListener {
+- boolean _ctrl_pressed
+- boolean _alt_pressed
+- boolean _esc_pressed
+- boolean _onTextBox
+- boolean _alwaysOnTop
+- TransparentTextEditor _editor
++ void handle(KeyEvent)
+- void commandMode(KeyEvent,int,int,double,double)
+- boolean alternateEditingMode()
+- void makeTextBoxVisible()
+- void runTextBoxCommand()
+- void cyclingTabs()
+- void moveEditor(KeyEvent,int,double,double)
+- void resizeEditor(KeyEvent,int,double,double)
+}
+
+class sample.Constants {
++ {static} String INVALID_COMMAND_MESSAGE
++ {static} String HELP_PATH_NAME
++ {static} String BACKGROUND_COLOR
++ {static} String TEXT_COLOR
++ {static} double TEXTAREA_OPACITY
++ {static} double TEXTFIELD_OPACITY
++ {static} int TEXTAREA_TEXT_SIZE
++ {static} int TEXTBOX_TEXT_SIZE
+}
+
+
+javafx.application.Application <|-- sample.Main
+javafx.event.EventHandler <|.. sample.KeyboardPressedListener
+
+sample.Main -> sample.TransparentTextEditor
+sample.TransparentEditorsManager -> sample.TransparentTextEditor
+sample.TransparentTextEditor -> sample.FileManager
+sample.TransparentTextEditor -> sample.KeyboardPressedListener
+sample.Main -> sample.TransparentEditorsManager
+
+
+@enduml
