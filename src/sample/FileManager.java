@@ -24,7 +24,7 @@ public class FileManager {
         File file = _fileChooser.showOpenDialog(_editor.getStage());
         String fileContents = "";
         if(file != null) {
-            fileContents = UtilityFunctions.readFileContents(file);
+            fileContents = readFileContents(file);
             fileContents = (fileContents.equals("")) ? _editor.getTextArea().getText() : fileContents;
             _editor.getTextArea().setText(fileContents);
         }
@@ -40,6 +40,34 @@ public class FileManager {
         }catch (Exception e){
             System.out.println("Can't write file.");
         }
+    }
+
+    public static String readFileContents(File file){
+        // reads the contents of the file including the newlines and carriage returns
+        InputStream is;
+        StringBuilder sb = new StringBuilder();
+        try{
+            is = new FileInputStream(file);
+        }catch (Exception e){
+            System.out.println("Can't read from the file.");
+            return "";
+        }
+
+        int i = 0;
+        try{
+            i = is.read();
+        }catch(IOException e){
+            System.out.println("Can't read line");
+        }
+        while(i != -1){
+            sb.append((char) i);
+            try{
+                i = is.read();
+            }catch(IOException e){
+
+            }
+        }
+        return sb.toString();
     }
 
 }

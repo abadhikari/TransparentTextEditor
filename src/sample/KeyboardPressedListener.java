@@ -68,7 +68,7 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
             }
             // deletes all contents of the textbox once command is run
             _editor.getTextBox().textProperty().addListener((obs, oldText, newText) -> {
-                if(newText.length() == 0 || newText.equals(Constants.INVALID_COMMAND_MESSAGE) || newText.equals("?")){
+                if(newText.length() == 0 || newText.equals(CommandParser.INVALID_COMMAND_MESSAGE) || newText.equals("?")){
                     _editor.getTextBox().setText("");
                 }
             });
@@ -128,7 +128,7 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
         _editor.getTextBox().setEditable(_editor.getTextBoxOpacity() == 0);
         if(_editor.getTextBoxOpacity() == 0.0) {
             _editor.getTextBox().requestFocus();
-            _editor.getCommandParser().setOpacity(_editor.getTextBox(), Constants.TEXTFIELD_OPACITY);
+            _editor.getCommandParser().setOpacity(_editor.getTextBox(), TransparentTextEditor.TEXTFIELD_OPACITY);
         }
         else {
             _editor.getTextArea().requestFocus();

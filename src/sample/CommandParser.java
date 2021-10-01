@@ -7,6 +7,8 @@ import javafx.scene.control.TextInputControl;
 import java.util.HashMap;
 
 public class CommandParser {
+    public static final String INVALID_COMMAND_MESSAGE = "Invalid Command!";
+
     private TransparentTextEditor _editor;
     private HashMap<String, String> _colors;
 
@@ -30,7 +32,7 @@ public class CommandParser {
         // parse command line input and run the appropriate command
         input = input.replaceAll(" ", "");
         if(input.split("=").length < 2){
-            _editor.getTextBox().setText(Constants.INVALID_COMMAND_MESSAGE);
+            _editor.getTextBox().setText(INVALID_COMMAND_MESSAGE);
             return;
         }
         String cmdAttribute = input.split("=")[0].toLowerCase();
@@ -40,7 +42,7 @@ public class CommandParser {
                 || cmdAttribute.equals("text_size") || cmdAttribute.equals("text-size")
                 || cmdAttribute.equals("fontsize") || cmdAttribute.equals("font-size")
                 || cmdAttribute.equals("font_size")) {
-            if(UtilityFunctions.isInteger(cmdValue)){
+            if(isInteger(cmdValue)){
                 setTextSize(_editor.getTextArea(), Integer.parseInt(cmdValue));
             }
         }
@@ -54,12 +56,12 @@ public class CommandParser {
             setBackgroundColor(_editor.getTextArea(), cmdValue);
         }
         else if(cmdAttribute.equals("opacity")){
-            if (UtilityFunctions.isDouble(cmdValue)) {
+            if (isDouble(cmdValue)) {
                 setOpacity(_editor.getTextArea(), Double.parseDouble(cmdValue));
             }
         }
         else{
-            _editor.getTextBox().setText(Constants.INVALID_COMMAND_MESSAGE);
+            _editor.getTextBox().setText(INVALID_COMMAND_MESSAGE);
         }
     }
 
@@ -133,6 +135,26 @@ public class CommandParser {
         String cmdStart = "-fx-background-color: rgba(";
         String cmdEnd = ", " + opacity + ")";
         return cmdStart + _colors.get(backgroundColor) + cmdEnd;
+    }
+
+    public static boolean isInteger(String integer){
+        // check if a string is a valid integer
+        try {
+            Integer.parseInt(integer);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    public static boolean isDouble(String doub){
+        // check if a string is a valid double
+        try{
+            Double.parseDouble(doub);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
 

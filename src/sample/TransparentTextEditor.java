@@ -19,6 +19,14 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TransparentTextEditor {
+    public static final String HELP_PATH_NAME = "src/sample/transparent_text_editor_help.txt";
+    public static final String BACKGROUND_COLOR = "white";
+    public static final String TEXT_COLOR = "white";
+    public static final double TEXTAREA_OPACITY  = 0.2;
+    public static final double TEXTFIELD_OPACITY = 0.2;
+    public static final int TEXTAREA_TEXT_SIZE = 20;
+    public static final int TEXTBOX_TEXT_SIZE = 15;
+
     private Dimension _screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private double _width =300, _height =500;
     private javafx.scene.control.TextArea _textArea;
@@ -27,18 +35,19 @@ public class TransparentTextEditor {
     private Scene _scene;
     private Stage _stage;
 
-    private double _textAreaOpacity = Constants.TEXTAREA_OPACITY;
+    private double _textAreaOpacity = TEXTAREA_OPACITY;
     private double _textBoxOpacity = 0;
-    private String _backgroundColor = Constants.BACKGROUND_COLOR;
-    private String _textColor = Constants.TEXT_COLOR;
-    private int _textAreaTextSize = Constants.TEXTAREA_TEXT_SIZE;
-    private int _textBoxTextSize = Constants.TEXTBOX_TEXT_SIZE;
+    private String _backgroundColor = BACKGROUND_COLOR;
+    private String _textColor = TEXT_COLOR;
+    private int _textAreaTextSize = TEXTAREA_TEXT_SIZE;
+    private int _textBoxTextSize = TEXTBOX_TEXT_SIZE;
 
     private CommandParser _commandParser;
     private FileManager _fileManager;
     private TransparentEditorsManager _transparentEditorManager;
     private ArrayList<TransparentTextEditor> _textEditors;
     private AtomicInteger _focusedStage;
+    private EditorState editorState;
 
     public TransparentTextEditor(TransparentEditorsManager transparentEditorsManager){
         this(null, transparentEditorsManager);
@@ -52,6 +61,8 @@ public class TransparentTextEditor {
         _focusedStage = _transparentEditorManager.getFocusedStage();
         _commandParser = new CommandParser(this);
         _fileManager = new FileManager(this);
+
+        this.editorState = new EditorState(true);
 
         //text and textBox
         _textArea = new TextArea();
@@ -88,8 +99,8 @@ public class TransparentTextEditor {
     public void createHelpWindow(TransparentTextEditor edit){
         // create a new window that contains the help information
         TransparentTextEditor editor = (edit == null) ? createNewEditor() : edit;
-        File file = new File(Constants.HELP_PATH_NAME);
-        editor.getTextArea().setText(UtilityFunctions.readFileContents(file));
+        File file = new File(HELP_PATH_NAME);
+        editor.getTextArea().setText(FileManager.readFileContents(file));
 
         // set the location and size of the help window
         editor.getStage().setX(_stage.getX() + 10);
@@ -153,5 +164,7 @@ public class TransparentTextEditor {
     public FileManager getFileManagement(){ return _fileManager; }
 
     public CommandParser getCommandParser(){ return _commandParser; }
+
+    public EditorState getEditorState() { return this.editorState; }
 
 }
