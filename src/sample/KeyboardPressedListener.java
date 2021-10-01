@@ -5,17 +5,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class KeyboardPressedListener implements EventHandler<KeyEvent> {
-    private boolean _ctrl_pressed;
-    private boolean _alt_pressed;
-    private boolean _esc_pressed;
-
-    private boolean _onTextBox;
-    private boolean _alwaysOnTop;
     private TransparentTextEditor _editor;
 
     public KeyboardPressedListener(TransparentTextEditor editor){
-        _onTextBox = false;
-        _alwaysOnTop = true;
         _editor = editor;
     }
 
@@ -34,7 +26,8 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
         }
 
         if (event.getCode() == KeyCode.ALT) {
-            _alt_pressed = !_alt_pressed;
+            boolean alt_pressed = this._editor.getEditorState().getAltPressed();
+            this._editor.getEditorState().setAltPressed(!alt_pressed);
         }
 
         // cycle through the various tabs
@@ -43,7 +36,8 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
         }
 
         // after escape is pressed, the document becomes uneditable and special commands can be run
-        if (!_esc_pressed){
+        boolean escPressed = this._editor.getEditorState().getEscPressed();
+        if (!escPressed){
             commandMode(event, moveSpeed, expansionSpeed, xLoc, yLoc);
         }
     }
@@ -67,7 +61,8 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
         }
 
         // enter the text box command
-        if (_onTextBox) {
+        boolean onTextBox = this._editor.getEditorState().getOnTextBox();
+        if (onTextBox) {
             if (event.getCode() == KeyCode.ENTER) {
                 runTextBoxCommand();
             }
@@ -93,8 +88,9 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
 
         // setting gui as focused
         if (event.getCode() == KeyCode.F){
-            _alwaysOnTop = !_alwaysOnTop;
-            _editor.getStage().setAlwaysOnTop(_alwaysOnTop);
+            boolean alwaysOnTop = this._editor.getEditorState().getAlwaysOnTop();
+            this._editor.getEditorState().setAlwaysOnTop(!alwaysOnTop);
+            _editor.getStage().setAlwaysOnTop(!alwaysOnTop);
         }
 
         // add a new transparent text editor
@@ -110,21 +106,24 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
 
     private boolean alternateEditingMode(){
         // alternate between editing and quick command mode
-        if(_onTextBox){
+        boolean onTextBox = this._editor.getEditorState().getOnTextBox();
+        if(onTextBox){
             _editor.getTextArea().requestFocus();
             _editor.getCommandParser().setOpacity(_editor.getTextBox(), 0.0);
-            _onTextBox = false;
+            this._editor.getEditorState().setOnTextBox(false);
             _editor.getTextBox().clear();
             return false;
         }
-        _esc_pressed = !_esc_pressed;
-        _editor.getTextArea().setEditable(_esc_pressed);
+        boolean esc_pressed = this._editor.getEditorState().getEscPressed();
+        this._editor.getEditorState().setEscPressed(!esc_pressed);
+        _editor.getTextArea().setEditable(!esc_pressed);
         return true;
     }
 
     private void makeTextBoxVisible(){
         // makes the textBox appear and disappear
-        _onTextBox = !_onTextBox;
+        boolean onTextBox = this._editor.getEditorState().getOnTextBox();
+        this._editor.getEditorState().setOnTextBox(!onTextBox);
         _editor.getTextBox().clear();
         _editor.getTextBox().setEditable(_editor.getTextBoxOpacity() == 0);
         if(_editor.getTextBoxOpacity() == 0.0) {
@@ -139,7 +138,7 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
 
     private void runTextBoxCommand(){
         // entering textBox input
-        _onTextBox = false;
+        this._editor.getEditorState().setOnTextBox(false);
         _editor.getCommandParser().runTextBoxInput(_editor.getTextBox().getText());
         _editor.getTextArea().requestFocus();
         _editor.getTextBox().clear();
@@ -148,7 +147,8 @@ public class KeyboardPressedListener implements EventHandler<KeyEvent> {
 
     private void cyclingTabs(){
         // tabs through the various editors
-        _ctrl_pressed = !_ctrl_pressed;
+        boolean ctrlPressed = this._editor.getEditorState().getCtrlPressed();
+        this._editor.getEditorState().setCtrlPressed(!ctrlPressed);
         int newFocusedStageIndex = (_editor.getFocusedStage().get() + 1) % _editor.getTextEditors().size();
         _editor.getTextEditors().get(_editor.getFocusedStage().get()).getCommandParser().setOpacity(_editor.getTextArea(), _editor.getTextAreaOpacity() - 0.1);
         _editor.setFocusedStage(newFocusedStageIndex);
