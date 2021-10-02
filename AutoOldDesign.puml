@@ -118,11 +118,13 @@ class sample.Constants {
 javafx.application.Application <|-- sample.Main
 javafx.event.EventHandler <|.. sample.KeyboardPressedListener
 
-sample.Main -> sample.TransparentTextEditor
-sample.TransparentEditorsManager -> sample.TransparentTextEditor
-sample.TransparentTextEditor -> sample.FileManager
-sample.TransparentTextEditor -> sample.KeyboardPressedListener
-sample.Main -> sample.TransparentEditorsManager
+sample.Main --> sample.TransparentTextEditor
+sample.Main --> sample.TransparentEditorsManager
+sample.TransparentEditorsManager o-- sample.TransparentTextEditor
+sample.TransparentTextEditor *-- sample.FileManager
+sample.TransparentTextEditor *-- sample.KeyboardPressedListener
+sample.TransparentTextEditor *-- sample.CommandParser
+sample.KeyboardPressedListener -> sample.CommandParser
 
 
 @enduml

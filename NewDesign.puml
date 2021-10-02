@@ -1,0 +1,156 @@
+@startuml
+class sample.FileManager {
+- EditorManager _editorManager
+- FileChooser _fileChooser
++ void saveAs()
++ void openFile()
+- void _saveFile(String,File)
+
++ {static} String readFileContents(File)
+}
+
+abstract class sample.TextEditor {
++ {static} String HELP_PATH_NAME
++ {static} String DEFAULT_BACKGROUND_COLOR
++ {static} String DEFAULT_TEXT_COLOR
++ {static} double DEFAULT_TEXTAREA_OPACITY
++ {static} double DEFAULT_TEXTFIELD_OPACITY
++ {static} int DEFAULT_TEXTAREA_TEXT_SIZE
++ {static} int DEFAULT_TEXTBOX_TEXT_SIZE
+
+- Dimension _screenSize
+- double _width
+- javafx.scene.control.TextArea _textArea
+- TextField _textBox
+- StackPane _pane
+- Scene _scene
+- Stage _stage
+- double _textAreaOpacity
+- double _textBoxOpacity
+- String _backgroundColor
+- String _textColor
+- int _textAreaTextSize
+- int _textBoxTextSize
+
++ Dimension getScreenSize()
++ double getHeight()
++ double getWidth()
++ Stage getStage()
++ TextField getTextBox()
++ TextArea getTextArea()
++ double getTextAreaOpacity()
++ void setTextAreaOpacity(double)
++ double getTextBoxOpacity()
++ void setTextBoxOpacity(double)
++ String getBackgroundColor()
++ void setBackgroundColor(String)
++ String getTextColor()
++ void setTextColor(String)
++ int getTextAreaTextSize()
++ void setTextAreaTextSize(int)
++ void setTextBoxTextSize(int)
++ int getTextBoxTextSize()
+}
+
+class sample.TransparentTextEditor {
+
+- EditorManager _editorManager
+- EditorState _editorState
++ void createHelpWindow(TransparentTextEditor)
++ TransparentTextEditor createNewEditor()
++ EditorState getEditorState()
+
+}
+
+interface sample.EditorManager {
++ void cycleEditor()
++ TextEditor getFocusedEditor()
++ boolean removeEditor()
++ TextEditor newEditor()
+}
+
+class sample.TransparentEditorManager {
+- ArrayList<TextEditor> _textEditors
+- AtomicInteger _focusedStage
+
++ void cycleEditor()
++ TextEditor getFocusedEditor()
++ boolean removeEditor()
++ TextEditor newEditor()
+}
+
+class sample.Main {
++ void start(Stage)
++ {static} void main(String[])
+}
+
+class sample.CommandParser {
++ {static} String INVALID_COMMAND_MESSAGE
+
+- EditorManager _editorManager
+- HashMap<String,String> _colors
+- void _fill_colors()
++ void runTextBoxInput(String)
++ void setTextColor(TextInputControl,String)
++ void setTextSize(TextInputControl,int)
++ void setBackgroundColor(TextInputControl,String)
++ void setOpacity(TextInputControl,double)
+- void _runCSSCommand(TextInputControl,String,String,String,String)
+- String _textColorCmd(String)
+- String _textSizeCmd(String)
+- String _backgroundColorOpacityCmd(String,String)
+
++ {static} boolean isInteger(String)
++ {static} boolean isDouble(String)
+}
+
+class sample.EditorState {
+- boolean _ctrl_pressed
+- boolean _alt_pressed
+- boolean _esc_pressed
+- boolean _onTextBox
+- boolean _alwaysOnTop
+
++ boolean getCtrlPressed()
++ boolean getAltPressed()
++ boolean getEscPressed()
++ boolean getOnTextBox()
++ boolean getAlwaysOnTop()
+
++ void setCtrlPressed()
++ void setAltPressed()
++ void setEscPressed()
++ void setOnTextBox()
++ void setAlwaysOnTop()
+}
+
+class sample.KeyboardPressedListener {
+- EditorManager _editorManager
+- CommandParser _commandParser
+- FileManager _fileManager
+
++ void handle(KeyEvent)
+- void commandMode(KeyEvent,int,int,double,double)
+- boolean alternateEditingMode()
+- void makeTextBoxVisible()
+- void runTextBoxCommand()
+- void cyclingTabs()
+- void moveEditor(KeyEvent,int,double,double)
+- void resizeEditor(KeyEvent,int,double,double)
+}
+
+
+
+javafx.application.Application <|-- sample.Main
+javafx.event.EventHandler <|.. sample.KeyboardPressedListener
+
+sample.Main -- sample.TransparentEditorManager
+sample.TransparentEditorManager --o sample.TransparentTextEditor
+sample.TransparentTextEditor *-- sample.EditorState
+sample.TextEditor <|-- sample.TransparentTextEditor
+sample.EditorManager <|. sample.TransparentEditorManager
+sample.KeyboardPressedListener *-- sample.CommandParser
+sample.KeyboardPressedListener *-- sample.FileManager
+
+sample.TransparentEditorManager --o sample.KeyboardPressedListener
+@enduml
